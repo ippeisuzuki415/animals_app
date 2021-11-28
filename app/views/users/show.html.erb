@@ -1,2 +1,65 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<main>
+  <%= flash[:success] %>
+  <div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>User info</h2>
+      <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format: 'jpeg',fallback: "no_image.jpg" %>
+  <table class="table">
+  <tbody>
+    <tr></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= @user.nick_name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= @user.introduction %></th>
+  </tr>
+</tbody>
+</table>
+
+<div class="row">
+ <%= link_to "",edit_user_path(@user.id),class:"btn btn-outline-secondary btn-block fas fa-user-cog" %>
+</div>
+
+  <h1>New animal</h1>
+   <%= form_with model:@animal,  local:true do |f| %>
+  <h4>Title</h4>
+   <%= f.text_field :title %>
+  <h4>Opinion</h4>
+   <%= f.text_area :body %>
+   <%= f.submit 'Create Book' %>
+  <% end %>
+
+   </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Animals</h2>
+      <table class="table table-hover table-inverse">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Opinion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+           <% @animals.each do |animal| %>
+                <tr>
+                 <td><%= link_to user_path(animal.user) do %>
+                     <%= attachment_image_tag(animal.user, :profile_image, :fill, 50, 50,fallback: "no_image.jpg") %>
+                     <% end %>
+                 </td>
+                 <td><%= link_to animal.title, animal_path(animal.id) %></td>
+                 <td><%= animal.body %></td>
+                </tr>
+                <% end %>
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>
+      </main>
